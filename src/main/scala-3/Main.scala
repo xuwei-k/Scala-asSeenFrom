@@ -33,9 +33,8 @@ object Main {
 
     val c = Symbol.requiredClass("example.C")
     val a = Symbol.classSymbol("example.A")
-    val List(x1: Symbol) = c.methodMember("x")
-    val x = x1.tree.asInstanceOf[DefDef].returnTpt.tpe
-    val Apply(_, NamedArg("clazz", TypeApply(Ident("classOf"), clazz :: Nil)) :: Nil) = x1.annotations.head
+    val List(x: Symbol) = c.methodMember("x")
+    val Apply(_, NamedArg("clazz", TypeApply(Ident("classOf"), clazz :: Nil)) :: Nil) = x.annotations.head
     val result = asSeenFrom(clazz.tpe.asDottyType, c.typeRef.asDottyType, a.asDottySymbol).fromDottyType
     println(result.show)
     assert(result =:= TypeRepr.of[D[Int]], result)
