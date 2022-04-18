@@ -38,6 +38,23 @@ object Main {
     val result = asSeenFrom(clazz.tpe.asDottyType, c.typeRef.asDottyType, a.asDottySymbol).fromDottyType
     println(result.show)
     assert(result =:= TypeRepr.of[D[Int]], result)
+
+    val memberTypeResult1 = clazz.tpe.memberType(c)
+    println(memberTypeResult1)
+    try {
+      println(memberTypeResult1.show)
+    } catch {
+      case e =>
+        e.printStackTrace() // MatchError ???
+    }
+    val memberTypeResult2 = clazz.tpe.memberType(a)
+    println(memberTypeResult2)
+    try {
+      println(memberTypeResult2.show)
+    } catch {
+      case e =>
+        e.printStackTrace() // MatchError ???
+    }
   }
 
   def getTastyFileOrJar(clazz: Class[?]): Either[File, File] = {
